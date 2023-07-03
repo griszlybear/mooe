@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@100;300;500&display=swap");
+
+* {
+  font-family: "Public Sans", sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-image: url("../assets/background.jpg");
+  background-size: cover;
+  background-position: center;
+  backdrop-filter: blur(10px);
+}
+
+.login-container,
+.register-container {
+  width: 100%;
+  max-width: 600px;
+  padding: 30px;
+  background-color: rgba(248, 249, 250, 0.8);
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.btn-login,
+.btn-register {
+  padding: 10px 20px;
+  display: block;
+  margin: 20px auto;
+}
+
+.title-card {
+  color: gray;
+}
