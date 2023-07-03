@@ -60,6 +60,7 @@ $firstName = $_SESSION["first_name"];
     <section class="main">
         <div class="container">
             <h1><strong>Monitor Schools Admin</strong></h1>
+            <p>this is where the table list of schools goes</p>
         </div>
     </section>
 </body>
