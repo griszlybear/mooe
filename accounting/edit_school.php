@@ -137,12 +137,12 @@
 
                     <div class="form-group">
                         <label for="startDate">Bonding Start Date</label>
-                        <input type="date" class="form-control" id="startDate" name="startDate">
+                        <input type="date" class="form-control" id="startDate" name="startDate" value="<?php echo $row['bonding_date_start']; ?>">
                     </div>
 
                     <div class="form-group">
                         <label for="endDate">Bonding End Date</label>
-                        <input type="date" class="form-control" id="endDate" name="endDate">
+                        <input type="date" class="form-control" id="endDate" name="endDate" value="<?php echo $row['bonding_date_end']; ?>">
                     </div>
                 </div>
             </div>

@@ -45,6 +45,19 @@ $firstName = $_SESSION["first_name"];
                 line-height: 60px;
             }
         }
+
+        .bg-green {
+            color: green;
+            font-weight: bold;
+        }
+
+        .bg-orange {
+            color: orange;
+        }
+
+        .bg-red {
+            color: red;
+        }
     </style>
 </head>
 
@@ -58,7 +71,6 @@ $firstName = $_SESSION["first_name"];
                 <table id="schoolsTable" class="table">
                     <thead>
                         <tr>
-                            <th>Number</th>
                             <th>School Id</th>
                             <th>School Name</th>
                             <th>School Head</th>
@@ -67,6 +79,7 @@ $firstName = $_SESSION["first_name"];
                             <th>MCOC</th>
                             <th>Bonding Date Start</th>
                             <th>Bonding Date End</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -75,7 +88,7 @@ $firstName = $_SESSION["first_name"];
                         // Query for all the schools in the district
                         // Replace 'your_table_name' with the actual name of your school table
                         $district_id = $_SESSION['district'];
-                        $sql = "SELECT `school_number`, `school_id`, `school_name`, `school_head`, `account_no`, `school_type`, `mcoc`, `bonding_date_start`, `bonding_date_end` FROM school WHERE district_id = $district_id";
+                        $sql = "SELECT `school_number`, `school_id`, `school_name`, `school_head`, `account_no`, `school_type`, `mcoc`, `bonding_date_start`, `bonding_date_end`, `status` FROM school WHERE district_id = $district_id";
 
                         // Execute the query and fetch the data
                         // Replace 'your_database_connection' with the actual connection to your database
@@ -84,7 +97,6 @@ $firstName = $_SESSION["first_name"];
                         // Loop through the fetched data and generate table rows
                         while ($row = mysqli_fetch_assoc($result)) {
                             echo "<tr>";
-                            echo "<td>" . $row['school_number'] . "</td>";
                             echo "<td>" . $row['school_id'] . "</td>";
                             echo "<td>" . $row['school_name'] . "</td>";
                             echo "<td>" . $row['school_head'] . "</td>";
@@ -93,6 +105,21 @@ $firstName = $_SESSION["first_name"];
                             echo "<td>" . $row['mcoc'] . "</td>";
                             echo "<td>" . $row['bonding_date_start'] . "</td>";
                             echo "<td>" . $row['bonding_date_end'] . "</td>";
+
+                            // Add background color based on status
+                            $status = $row['status'];
+                            $statusClass = '';
+
+                            if ($status == 'active') {
+                                $statusClass = 'bg-green';
+                            } elseif ($status == 'on-hold') {
+                                $statusClass = 'bg-orange';
+                            } elseif ($status == 'not-available') {
+                                $statusClass = 'bg-red';
+                            }
+
+                            echo "<td class='$statusClass'>" . $status . "</td>";
+
                             echo "<td>";
                             echo '<div class="btn-group" role="group">';
                             echo '<button onclick="editSchool(' . $row["school_number"] . ')" class="btn btn-primary btn-sm">Edit</button>';

@@ -23,10 +23,6 @@ $firstName = $_SESSION["first_name"];
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <style>
         .main {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             padding: 50px;
         }
 
@@ -41,6 +37,41 @@ $firstName = $_SESSION["first_name"];
             .main h1 {
                 font-size: 40px;
                 line-height: 60px;
+            }
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 300px;
+            background-color: #f8f9fa;
+            padding: 20px;
+            z-index: 1;
+        }
+
+        .content {
+            margin-left: 320px;
+            padding: 20px;
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                display: none;
+            }
+
+            .content {
+                margin-left: 20px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .main {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: calc(100vh - 40px);
             }
         }
     </style>
@@ -78,7 +109,7 @@ $firstName = $_SESSION["first_name"];
                                 echo "<td>" . $row["district_name"] . "</td>";
                                 echo "<td>" . ($row["assigned_user"] ? $row["assigned_user"] : "-") . "</td>";
                                 echo "<td><button onclick=\"editDistrict(" . $row["district_id"] . ")\" class=\"btn btn-primary btn-sm\">Edit</button>
-                                <button onclick=\"deleteDistrict(" . $row["district_id"] . ")\" class=\"btn btn-danger btn-sm\">Delete</button></td>";
+                                    <button onclick=\"deleteDistrict(" . $row["district_id"] . ")\" class=\"btn btn-danger btn-sm\">Delete</button></td>";
                                 echo "</tr>";
                             }
                         } else {

@@ -59,20 +59,18 @@ require_once('./db/connection.php');
             mysqli_close($conn);
 
             if ($userLevel == "admin") {
-                // Redirect to admin.php
-                // Display SweetAlert popup
+                // Redirect to admin.php after animation
                 echo '<script>';
                 echo 'swal("Login Successful!", "You will be redirected to the admin page.", "success").then(() => {';
-                echo '   window.location.href = "./admin/admin.php";';
+                echo '   window.location.href = "animation.php?redirect=admin";';
                 echo '});';
                 echo '</script>';
                 exit;
             } elseif ($userLevel == "accounting") {
-                // Redirect to accounting.php
-                // Display SweetAlert popup
+                // Redirect to accounting.php after animation
                 echo '<script>';
                 echo 'swal("Login Successful!", "You will be redirected to the accounting page.", "success").then(() => {';
-                echo '   window.location.href = "./accounting/accounting.php";';
+                echo '   window.location.href = "animation.php?redirect=accounting";';
                 echo '});';
                 echo '</script>';
                 exit;
