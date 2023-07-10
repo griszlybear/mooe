@@ -34,6 +34,7 @@
             overflow-y: auto;
             transition: 0.6s ease;
             transition-property: left;
+            z-index: 999;
         }
 
         .side-bar::-webkit-scrollbar {
