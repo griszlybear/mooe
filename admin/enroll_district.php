@@ -125,7 +125,7 @@ $firstName = $_SESSION["first_name"];
                     <input type="text" class="form-control" name="district" placeholder="Enter the district name here" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Add District</button>
-                <button type="button" class="btn btn-danger" id="empty-district-btn">Empty District</button>
+                <button type="button" class="btn btn-danger" id="empty-district-btn">Re-Assign Accounting Units</button>
             </form>
         </div>
     </section>
@@ -180,8 +180,8 @@ $firstName = $_SESSION["first_name"];
             $('#empty-district-btn').click(function() {
                 // Show SweetAlert confirmation dialog
                 swal({
-                    title: "Empty District",
-                    text: "Are you sure you want to remove all accounting units from their districts?",
+                    title: "Re-Assign",
+                    text: "Are you sure you want to re-assign all accounting units from their districts?",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,

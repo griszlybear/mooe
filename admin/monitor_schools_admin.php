@@ -120,6 +120,22 @@ $firstName = $_SESSION["first_name"];
             color: white;
             border-radius: 5px;
         }
+
+        .styled-dropdown {
+            padding: 10px;
+            font-size: 16px;
+            color: #555555;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            background-color: #ffffff;
+            transition: border-color 0.3s ease;
+            font-size: 1em;
+        }
+
+        .styled-dropdown:focus {
+            outline: none;
+            border-color: #3399ff;
+        }
     </style>
     <script>
         // Function to handle the district dropdown change event
@@ -161,7 +177,7 @@ $firstName = $_SESSION["first_name"];
             <h1 class="mt-5"><strong>List of Schools</strong></h1>
 
             <div style="display: flex; justify-content: center;">
-                <select id="districtDropdown" onchange="handleDistrictChange()">
+                <select id="districtDropdown" onchange="handleDistrictChange()" class="styled-dropdown">
                     <!-- Populate the dropdown with the list of districts -->
                     <?php
                     // Query to fetch the list of districts
@@ -199,7 +215,7 @@ $firstName = $_SESSION["first_name"];
                     ?>
                 </select>
             </div>
-
+            <p style="text-align: center; color:#555555; font-style:italic; margin-top: 30px;">Did not see the school you are looking for? Click <a href="../accounting/enroll_schools.php" style="font-weight: bold; color: blue;">here</a></p>
 
             <div id="schoolsTable_wrapper" class="mdc-data-table">
                 <table id="schoolsTable" class="mdc-data-table__table">
@@ -208,6 +224,7 @@ $firstName = $_SESSION["first_name"];
                             <th class="mdc-data-table__header-cell">School Id</th>
                             <th class="mdc-data-table__header-cell">School Name</th>
                             <th class="mdc-data-table__header-cell">School Head</th>
+                            <th class="mdc-data-table__header-cell">Organization Code</th>
                             <th class="mdc-data-table__header-cell">Account Number</th>
                             <th class="mdc-data-table__header-cell">School Type</th>
                             <th class="mdc-data-table__header-cell">MCOC</th>
@@ -223,7 +240,7 @@ $firstName = $_SESSION["first_name"];
                         // Query for all the schools in the district
                         // Replace 'your_table_name' with the actual name of your school table
                         $district_id = $_SESSION['district'];
-                        $sql = "SELECT `school_number`, `school_id`, `school_name`, `school_head`, `account_no`, `school_type`, `mcoc`, `bonding_date_start`, `bonding_date_end`, `status` FROM school WHERE district_id = $district_id";
+                        $sql = "SELECT `school_number`, `school_id`, `school_name`, `school_head`, `org_code`, `account_no`, `school_type`, `mcoc`, `bonding_date_start`, `bonding_date_end`, `status` FROM school WHERE district_id = $district_id";
 
                         // Execute the query and fetch the data
                         // Replace 'your_database_connection' with the actual connection to your database
@@ -235,6 +252,7 @@ $firstName = $_SESSION["first_name"];
                             echo "<td class='mdc-data-table__cell' style='color: #2B50AA;'>" . $row['school_id'] . "</td>";
                             echo "<td class='mdc-data-table__cell' style='font-weight: bold;'>" . $row['school_name'] . "</td>";
                             echo "<td class='mdc-data-table__cell'>" . $row['school_head'] . "</td>";
+                            echo "<td class='mdc-data-table__cell'>" . $row['org_code'] . "</td>";
                             echo "<td class='mdc-data-table__cell'>" . $row['account_no'] . "</td>";
                             echo "<td class='mdc-data-table__cell'>" . $row['school_type'] . "</td>";
                             echo "<td class='mdc-data-table__cell'>" . $row['mcoc'] . "</td>";
@@ -379,6 +397,9 @@ $firstName = $_SESSION["first_name"];
                                         // Prevent the default form submission
                                         event.preventDefault();
 
+                                    } else {
+                                        // User clicked the "Cancel" button
+                                        location.reload(); // Reload the page
                                     }
                                 });
                             },

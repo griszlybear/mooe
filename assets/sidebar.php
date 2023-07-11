@@ -194,7 +194,6 @@
         </header>
         <div class="menu">
             <div class="item"><a href="../admin/admin.php"><i class="fas fa-desktop"></i>Dashboard</a></div>
-            <div class="item"><a href="../accounting/enroll_schools.php"><i class="fas fa-school"></i>Enroll Schools</a></div>
             <div class="item">
                 <a class="sub-btn"><i class="fas fa-table"></i>Monitoring<i class="fas fa-angle-right dropdown"></i></a>
                 <div class="sub-menu">

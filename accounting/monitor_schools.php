@@ -125,7 +125,7 @@ $firstName = $_SESSION["first_name"];
     <div class="main">
         <div class="container">
             <h1 class="mt-5"><strong>List of Schools</strong></h1>
-
+            <p style="text-align: center; font-style: italic; color: red;">*Please double check your inputs before saving</p>
             <div id="schoolsTable_wrapper" class="mdc-data-table">
                 <table id="schoolsTable" class="mdc-data-table__table">
                     <thead>
@@ -135,7 +135,6 @@ $firstName = $_SESSION["first_name"];
                             <th class="mdc-data-table__header-cell">School Head</th>
                             <th class="mdc-data-table__header-cell">Account Number</th>
                             <th class="mdc-data-table__header-cell">School Type</th>
-                            <th class="mdc-data-table__header-cell">MCOC</th>
                             <th class="mdc-data-table__header-cell">Bonding Date Start</th>
                             <th class="mdc-data-table__header-cell">Bonding Date End</th>
                             <th class="mdc-data-table__header-cell">Status</th>
@@ -162,7 +161,6 @@ $firstName = $_SESSION["first_name"];
                             echo "<td class='mdc-data-table__cell'>" . $row['school_head'] . "</td>";
                             echo "<td class='mdc-data-table__cell'>" . $row['account_no'] . "</td>";
                             echo "<td class='mdc-data-table__cell'>" . $row['school_type'] . "</td>";
-                            echo "<td class='mdc-data-table__cell'>" . $row['mcoc'] . "</td>";
                             echo "<td class='mdc-data-table__cell'>" . $row['bonding_date_start'] . "</td>";
                             echo "<td class='mdc-data-table__cell'>" . $row['bonding_date_end'] . "</td>";
 
@@ -304,6 +302,9 @@ $firstName = $_SESSION["first_name"];
                                         // Prevent the default form submission
                                         event.preventDefault();
 
+                                    } else {
+                                        // User clicked the "Cancel" button
+                                        location.reload(); // Reload the page
                                     }
                                 });
                             },

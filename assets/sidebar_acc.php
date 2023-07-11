@@ -202,7 +202,7 @@
                     <a href="#" class="sub-item">Sub Item 03</a>
                 </div>
             </div>
-            <div class="item"><a href="../accounting/enroll_schools.php"><i class="fas fa-th"></i>Enroll Schools</a></div>
+            <div class="item"><a href="../accounting/enroll_schools.php"><i class="fas fa-school"></i>Enroll Schools</a></div>
             <div class="item">
                 <a class="sub-btn"><i class="fas fa-cogs"></i>Settings<i class="fas fa-angle-right dropdown"></i></a>
                 <div class="sub-menu">
