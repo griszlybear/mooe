@@ -210,10 +210,12 @@
                 </div>
             </div>
             <div class="item">
-                <a class="sub-btn"><i class="fas fa-cogs"></i>Settings<i class="fas fa-angle-right dropdown"></i></a>
+                <a class="sub-btn"><i class="fas fa-cogs"></i>Expenses<i class="fas fa-angle-right dropdown"></i></a>
                 <div class="sub-menu">
-                    <a href="#" class="sub-item">Sub Item 01</a>
-                    <a href="#" class="sub-item">Sub Item 02</a>
+                    <a href="../admin/register_expenses.php" class="sub-item">Register</a>
+                    <a href="#" class="sub-item">IHC/D</a>
+                    <a href="#" class="sub-item">SEMI EXPS</a>
+                    <a href="#" class="sub-item">OTHER EXPS</a>
                 </div>
             </div>
             <div class="item"><a href="#"><i class="fas fa-info-circle"></i>Profile</a></div>

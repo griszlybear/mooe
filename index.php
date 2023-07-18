@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once('./db/connection.php');
 ?>
 
@@ -44,7 +45,6 @@ require_once('./db/connection.php');
         $result = mysqli_query($conn, $query);
 
         if (mysqli_num_rows($result) > 0) {
-            session_start();
             $user = mysqli_fetch_assoc($result);
             $userLevel = $user['user_level'];
             $user_id = $user["user_id"];

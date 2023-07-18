@@ -215,7 +215,7 @@ $firstName = $_SESSION["first_name"];
                     ?>
                 </select>
             </div>
-            <p style="text-align: center; color:#555555; font-style:italic; margin-top: 30px;">Did not see the school you are looking for? Click <a href="../accounting/enroll_schools.php" style="font-weight: bold; color: blue;">here</a></p>
+            <p style="text-align: center; color:#555555; font-style:italic; margin-top: 30px;">Didn't find the school you were searching for? Register school <a href="../accounting/enroll_schools.php" style="font-weight: bold; color: blue;">here</a></p>
 
             <div id="schoolsTable_wrapper" class="mdc-data-table">
                 <table id="schoolsTable" class="mdc-data-table__table">

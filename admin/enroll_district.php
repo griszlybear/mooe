@@ -74,6 +74,19 @@ $firstName = $_SESSION["first_name"];
                 min-height: calc(100vh - 40px);
             }
         }
+
+        .dataTables_wrapper .dt-buttons button {
+            background-color: #1976d2;
+            color: white;
+            border-radius: 5px;
+            padding: 0.5em;
+        }
+
+        .dataTables_wrapper .dt-buttons button:hover {
+            background-color: #1976f9;
+            color: white;
+            border-radius: 5px;
+        }
     </style>
 </head>
 
@@ -170,12 +183,21 @@ $firstName = $_SESSION["first_name"];
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.flash.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.print.min.js"></script>
     <script>
         $(document).ready(function() {
             var table = $('#districtTable').DataTable({
                 paging: true,
-                pageLength: 5
-
+                pageLength: 5,
+                dom: 'Bfrtip', // Add buttons to the table layout
+                buttons: [
+                    'copy', // Button to copy data to clipboard
+                    'csv', // Button to export data to CSV
+                    'print' // Button to print the table
+                ]
             });
             $('#empty-district-btn').click(function() {
                 // Show SweetAlert confirmation dialog

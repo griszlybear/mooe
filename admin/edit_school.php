@@ -170,7 +170,6 @@
                     <select class="form-control" id="status" name="status">
                         <option value="active" <?php echo ($row['status'] == 'active') ? 'selected' : ''; ?> class="active-option">Active</option>
                         <option value="on-hold" <?php echo ($row['status'] == 'on-hold') ? 'selected' : ''; ?> class="on-hold-option">On-hold</option>
-                        <option value="not-available" <?php echo ($row['status'] == 'not-available') ? 'selected' : ''; ?> class="not-available-option">Not-available</option>
                     </select>
                 </div>
             </div>
