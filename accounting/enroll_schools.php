@@ -65,6 +65,56 @@ $firstName = $_SESSION["first_name"];
         .form-group {
             margin: 10px;
         }
+
+        /* Additional Styles for the Form */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        form {
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
+        }
+
+        .row {
+            margin: 20px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 
@@ -147,16 +197,16 @@ $firstName = $_SESSION["first_name"];
                             </select>
                         </div>
                         <div class="form-group">
-                            <div class="date-range-container">
-                                <div class="date-input-group">
-                                    <label for="startDate">Bonding Start Date</label>
-                                    <input type="date" class="form-control" id="startDate" name="startDate">
-                                </div>
-                                <div class="date-input-group">
-                                    <label for="endDate">Bonding End Date</label>
-                                    <input type="date" class="form-control" id="endDate" name="endDate">
-                                </div>
+
+                            <div class="date-input-group">
+                                <label for="startDate">Bonding Start Date</label>
+                                <input type="date" class="form-control" id="startDate" name="startDate">
                             </div>
+                            <div class="date-input-group">
+                                <label for="endDate">Bonding End Date</label>
+                                <input type="date" class="form-control" id="endDate" name="endDate">
+                            </div>
+
                         </div>
                     </div>
                 </div>

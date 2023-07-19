@@ -79,7 +79,7 @@ $firstName = $_SESSION["first_name"];
             background-color: #1976d2;
             color: white;
             border-radius: 5px;
-            padding: 0.5em;
+            padding: 0.5 em;
         }
 
         .dataTables_wrapper .dt-buttons button:hover {
@@ -122,7 +122,7 @@ $firstName = $_SESSION["first_name"];
                                 echo "<td>" . $row["district_name"] . "</td>";
                                 echo "<td>" . ($row["assigned_user"] ? $row["assigned_user"] : "-") . "</td>";
                                 echo "<td><button onclick=\"editDistrict(" . $row["district_id"] . ")\" class=\"btn btn-primary btn-sm\">Edit</button>
-                                    <button onclick=\"deleteDistrict(" . $row["district_id"] . ")\" class=\"btn btn-danger btn-sm\">Delete</button></td>";
+                                    <button onclick=\"deleteDistrict(" . $row["district_id"] . ")\" class=\"btn btn-danger btn-sm\">Remove Unit</button></td>";
                                 echo "</tr>";
                             }
                         } else {
@@ -330,8 +330,8 @@ $firstName = $_SESSION["first_name"];
 
         function deleteDistrict(district_id) {
             swal({
-                title: "Delete District",
-                text: "Are you sure you want to delete this district?",
+                title: "Remove Unit",
+                text: "Are you sure you want to remove the assigned unit on this district?",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
