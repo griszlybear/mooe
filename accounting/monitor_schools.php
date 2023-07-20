@@ -33,6 +33,7 @@ $firstName = $_SESSION["first_name"];
             font-family: "Public Sans", sans-serif;
         }
 
+
         .bg-green {
             color: green;
             font-weight: bold;

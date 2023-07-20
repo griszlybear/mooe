@@ -42,6 +42,12 @@ $firstName = $_SESSION["first_name"];
             }
         }
 
+
+        td {
+            white-space: normal;
+        }
+
+
         .sidebar {
             position: fixed;
             top: 0;
