@@ -137,7 +137,9 @@ $result = mysqli_query($conn, $query);
         }
 
         .btn-group {
-            display: inline-block;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
         }
 
         .btn-group .btn {
@@ -183,6 +185,13 @@ $result = mysqli_query($conn, $query);
         </div>
     </section>
 
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Include SweetAlert JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
     <!-- Add DataTables JavaScript -->
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
@@ -193,7 +202,7 @@ $result = mysqli_query($conn, $query);
                 "pagingType": "full_numbers",
                 "lengthChange": false,
                 "order": [],
-                "lengthMenu": [5],
+                "lengthMenu": [8],
                 "language": {
                     "search": "_INPUT_",
                     "searchPlaceholder": "Search...",
@@ -206,6 +215,160 @@ $result = mysqli_query($conn, $query);
                 }
             });
         });
+
+        // Function to handle editing expenses
+        function editSchool(expensesId) {
+            swal({
+                title: "Edit Expense",
+                text: "Are you sure you want to edit this expense?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: false,
+            }).then((willEdit) => {
+                if (willEdit) {
+                    // User confirmed the edit action
+                    console.log("Edit school with ID: " + expensesId);
+                    // You can perform AJAX requests or other operations to handle the edit action
+
+                    // Replace the URL with the actual URL for editing school
+                    var editUrl = 'edit_school.php';
+                    // Pass the expenses ID to the server
+                    var formData = {
+                        school_number: expensesId
+                    };
+
+                    // Example AJAX request for editing school
+                    $.ajax({
+                        url: editUrl,
+                        method: 'POST',
+                        data: formData,
+                        success: function(response) {
+                            // Handle success response
+                            swal({
+                                title: "Edit School",
+                                content: {
+                                    element: "div",
+                                    attributes: {
+                                        innerHTML: response
+                                    }
+                                },
+                                buttons: {
+                                    cancel: true,
+                                    confirm: {
+                                        text: "Save Changes",
+                                        closeModal: false
+                                    }
+                                },
+                                dangerMode: false
+                            }).then((willSave, event) => {
+                                if (willSave) {
+                                    // User clicked the "Save Changes" button in the form
+                                    console.log("Saving changes...");
+
+                                    // You can perform another AJAX request to submit the form data
+                                    // Example:
+                                    var saveUrl = 'save_school.php';
+                                    var saveData = $('#edit-school-form').serialize();
+                                    console.log("Form data:");
+                                    console.log(saveData);
+
+                                    // Example AJAX request for saving school changes
+                                    $.ajax({
+                                        url: saveUrl,
+                                        method: 'POST',
+                                        data: saveData,
+                                        success: function(response) {
+                                            console.log("Received response:");
+                                            console.log(response);
+
+                                            var result = JSON.parse(response);
+                                            if (result.status === 'success') {
+                                                swal("Success", result.message, "success").then(function() {
+                                                    // Reload the page to update the school list
+                                                    location.reload();
+                                                });
+                                            } else {
+                                                swal("Error", result.message, "error");
+                                            }
+                                        },
+                                        error: function(xhr, status, error) {
+                                            console.error(error);
+                                            swal("Error", "An error occurred.", "error");
+                                        }
+                                    });
+
+                                    // Prevent the default form submission
+                                    event.preventDefault();
+                                } else {
+                                    // User clicked the "Cancel" button
+                                    location.reload(); // Reload the page
+                                }
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle error response
+                            console.error(error);
+                        }
+                    });
+                }
+            });
+        }
+
+        // Function to handle deleting expenses
+        function deleteSchool(expensesId) {
+            swal({
+                title: "Delete Expense",
+                text: "Are you sure you want to delete this expense?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    // User confirmed the delete action
+                    swal({
+                        title: "Deleting...",
+                        text: "Please wait while the expense is being deleted.",
+                        icon: "info",
+                        buttons: false,
+                        closeOnClickOutside: false,
+                        closeOnEsc: false,
+                    });
+
+                    // Replace the URL with the actual URL for deleting school
+                    var deleteUrl = 'delete_school.php';
+                    // Pass the expenses ID to the server
+                    var formData = {
+                        school_number: expensesId
+                    };
+
+                    // Example AJAX request for deleting school
+                    $.ajax({
+                        url: deleteUrl,
+                        method: 'POST',
+                        data: formData,
+                        success: function(response) {
+                            // Handle success response
+                            swal({
+                                title: "Deleted!",
+                                text: response.message,
+                                icon: "success",
+                            }).then(() => {
+                                location.reload();
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle error response
+                            swal({
+                                title: "Error",
+                                text: "An error occurred while deleting the expense.",
+                                icon: "error",
+                            });
+                            console.error(error);
+                        }
+                    });
+                }
+            });
+        }
     </script>
 </body>
 
