@@ -25,7 +25,7 @@ $firstName = $_SESSION["first_name"];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOOE | Admin</title>
+    <title>MOOE | List of Schools</title>
     <!-- Include Material Design CSS -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-components-web@10.0.0/dist/material-components-web.min.css">
@@ -113,6 +113,7 @@ $firstName = $_SESSION["first_name"];
             background-color: #1976d2;
             color: white;
             border-radius: 5px;
+            height: 3em;
         }
 
         .dataTables_wrapper .dt-buttons button:hover {
@@ -303,8 +304,30 @@ $firstName = $_SESSION["first_name"];
                     pageLength: 5,
                     // Use Material Design theme for the table
                     dom: 'Bftip',
-                    buttons: [
-                        'copy', 'csv', 'print'
+                    buttons: [{
+                            extend: 'copy',
+                            text: '<span class="material-icons">content_copy</span> Copy',
+                            exportOptions: {
+                                columns: ':not(:last-child)' // Exclude the last column (Actions)
+                            },
+                            className: 'mdc-button mdc-button--raised mdc-button--compact mdc-data-table__button'
+                        },
+                        {
+                            extend: 'csv',
+                            text: '<span class="material-icons">file_download</span> Export to Excel',
+                            exportOptions: {
+                                columns: ':not(:last-child)' // Exclude the last column (Actions)
+                            },
+                            className: 'mdc-button mdc-button--raised mdc-button--compact mdc-data-table__button'
+                        },
+                        {
+                            extend: 'print',
+                            text: '<span class="material-icons">print</span> Print',
+                            exportOptions: {
+                                columns: ':not(:last-child)' // Exclude the last column (Actions)
+                            },
+                            className: 'mdc-button mdc-button--raised mdc-button--compact mdc-data-table__button'
+                        }
                     ],
                     language: {
                         search: '<span class="material-icons">search</span>',

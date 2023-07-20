@@ -18,6 +18,8 @@ $firstName = $_SESSION["first_name"];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MOOE | Admin</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-components-web@10.0.0/dist/material-components-web.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -79,7 +81,7 @@ $firstName = $_SESSION["first_name"];
             background-color: #1976d2;
             color: white;
             border-radius: 5px;
-            padding: 0.5 em;
+            height: 3em;
         }
 
         .dataTables_wrapper .dt-buttons button:hover {
@@ -192,13 +194,34 @@ $firstName = $_SESSION["first_name"];
             var table = $('#districtTable').DataTable({
                 paging: true,
                 pageLength: 5,
-                dom: 'Bfrtip', // Add buttons to the table layout
-                buttons: [
-                    'copy', // Button to copy data to clipboard
-                    'csv', // Button to export data to CSV
-                    'print' // Button to print the table
+                dom: 'Bfrtip',
+                buttons: [{
+                        extend: 'copy',
+                        text: '<span class="material-icons">content_copy</span> Copy',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Exclude the last column (Actions)
+                        },
+                        className: 'mdc-button mdc-button--raised mdc-button--compact mdc-data-table__button'
+                    },
+                    {
+                        extend: 'csv',
+                        text: '<span class="material-icons">file_download</span> Export to Excel',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Exclude the last column (Actions)
+                        },
+                        className: 'mdc-button mdc-button--raised mdc-button--compact mdc-data-table__button'
+                    },
+                    {
+                        extend: 'print',
+                        text: '<span class="material-icons">print</span> Print',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Exclude the last column (Actions)
+                        },
+                        className: 'mdc-button mdc-button--raised mdc-button--compact mdc-data-table__button'
+                    }
                 ]
             });
+
             $('#empty-district-btn').click(function() {
                 // Show SweetAlert confirmation dialog
                 swal({
