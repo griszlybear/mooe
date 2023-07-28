@@ -58,11 +58,19 @@ require_once('./db/connection.php');
             $_SESSION["district"] = $district;
             mysqli_close($conn);
 
+
             if ($userLevel == "admin") {
                 // Redirect to admin.php after animation
                 echo '<script>';
                 echo 'swal("Login Successful!", "You will be redirected to the admin page.", "success").then(() => {';
                 echo '   window.location.href = "animation.php?redirect=admin";';
+                echo '});';
+                echo '</script>';
+                exit;
+            } elseif (!isset($_SESSION["district"]) || empty($_SESSION["district"])) {
+                echo '<script>';
+                echo 'swal("No District Assigned", "You do not have an assigned district; please contact the Admin to have one assigned to you.", "error").then(() => {';
+                echo '   window.location.href = "./index.php";';
                 echo '});';
                 echo '</script>';
                 exit;

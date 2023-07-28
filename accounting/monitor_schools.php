@@ -9,6 +9,13 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
 $firstName = $_SESSION["first_name"];
 
+$notifications = [
+    "Admin removed you from your district",
+    "Please Update your Ledger",
+    "Lists of credited schools are now posted",
+    "You have 10 schools that are not yet liquidated"
+];
+$notificationCount = count($notifications);
 // print_r($_SESSION);
 
 ?>
@@ -31,6 +38,99 @@ $firstName = $_SESSION["first_name"];
 
         * {
             font-family: "Public Sans", sans-serif;
+        }
+
+        .ibox {
+            clear: both;
+            margin-bottom: 25px;
+            margin-top: 0;
+            padding: 0;
+        }
+
+        .ibox-title {
+            -moz-border-bottom-colors: none;
+            -moz-border-left-colors: none;
+            -moz-border-right-colors: none;
+            -moz-border-top-colors: none;
+            background-color: #ffffff;
+            border-color: #e7eaec;
+            border-image: none;
+            border-style: solid solid none;
+            border-width: 2px 0 0;
+            color: inherit;
+            margin-bottom: 0;
+            padding: 15px 15px 7px;
+            min-height: 48px;
+        }
+
+        .ibox-content {
+            background-color: #ffffff;
+            color: inherit;
+            padding: 15px 20px 20px 20px;
+            border-color: #e7eaec;
+            border-image: none;
+            border-style: solid solid none;
+            border-width: 1px 0;
+            clear: both;
+        }
+
+        /* New styles for notification icon */
+        .notification-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            font-size: 24px;
+            color: black;
+        }
+
+        .notification-preview {
+            position: fixed;
+            top: 60px;
+            right: 20px;
+            width: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            display: none;
+        }
+
+        .notification-preview .notification-item {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+            color: #1b1a1b;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50%;
+            color: white;
+            font-size: 12px;
+            text-align: center;
+            line-height: 20px;
+        }
+
+        .notification-close {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #ED5565;
+            font-size: 30px;
+        }
+
+        .notification-item {
+            position: relative;
         }
 
 
@@ -191,6 +291,21 @@ $firstName = $_SESSION["first_name"];
                     </tbody>
                 </table>
             </div>
+        </div>
+        <!-- Add the notification icon and preview -->
+        <div class="notification-icon" onclick="toggleNotificationPreview()">
+            <i class="fa fa-bell"></i>
+            <?php if ($notificationCount > 0) : ?>
+                <div class="notification-badge"></div>
+            <?php endif; ?>
+        </div>
+        <div class="notification-preview" id="notificationPreview">
+            <?php foreach ($notifications as $notification) : ?>
+                <div class="notification-item">
+                    <?php echo $notification; ?>
+                    <span class="notification-close" onclick="deleteNotification(this)">&times;</span>
+                </div>
+            <?php endforeach; ?>
         </div>
 
 
@@ -371,5 +486,17 @@ $firstName = $_SESSION["first_name"];
             }
         </script>
 </body>
+
+<script>
+    function toggleNotificationPreview() {
+        var preview = document.getElementById('notificationPreview');
+        preview.style.display = preview.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function deleteNotification(closeIcon) {
+        var item = closeIcon.parentNode;
+        item.parentNode.removeChild(item);
+    }
+</script>
 
 </html>

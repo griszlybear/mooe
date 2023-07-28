@@ -1,3 +1,15 @@
+<?php
+
+$notifications = [
+    "Admin removed you from your district",
+    "Please Update your Ledger",
+    "Lists of credited schools are now posted",
+    "You have 10 schools that are not yet liquidated"
+];
+$notificationCount = count($notifications);
+
+?>
+
 <html>
 
 <head>
