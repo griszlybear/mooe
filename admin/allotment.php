@@ -32,6 +32,15 @@ $firstName = $_SESSION["first_name"];
     form>label {
         color: black;
     }
+
+    #schoolFields {
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: #f9f9f9;
+        color: black;
+    }
 </style>
 
 <body>
@@ -95,15 +104,15 @@ $firstName = $_SESSION["first_name"];
                     ?>
                 </select>
                 <!-- </div> -->
+                <div class="form-group">
+                    <br>
+                    <!-- Add dynamic input fields for schools and their allotment balance and graduation fund -->
+                    <!-- JavaScript will handle adding these fields based on the selected district -->
+                    <div id="schoolFields" class="row"></div>
+                    <div id="pagination"></div>
+                </div>
                 <br>
-                <label for="schools">Schools in the selected district:</label>
-                <br>
-                <!-- Add dynamic input fields for schools and their allotment balance and graduation fund -->
-                <!-- JavaScript will handle adding these fields based on the selected district -->
-                <div id="schoolFields"></div>
-                <div id="pagination"></div>
-                <br>
-                <button type="submit">Review</button>
+                <button type="submit" class="btn btn-primary">Review</button>
             </form>
         </div>
     </div>
@@ -135,6 +144,29 @@ $firstName = $_SESSION["first_name"];
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="script.js"></script>
     <script>
+        $(document).ready(function() {
+            // Fetch districts data and populate the dropdown
+            $.ajax({
+                url: 'get_districts.php',
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    console.log('Response from get_districts.php:', response);
+                    var districtDropdown = $('#districtDropdown');
+                    districtDropdown.empty();
+                    response.districts.forEach(function(district) {
+                        districtDropdown.append('<option value="' + district.district_id + '">' + district.district_name + '</option>');
+                    });
+                    handleDistrictChange(); // Populate schools based on the default district selection
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching districts:', error);
+                    console.log(xhr.responseText); // Log the actual response
+                }
+            });
+        });
+
+
         function handleDistrictChange() {
             var districtId = $('#districtDropdown').val();
             // Make an AJAX request to fetch schools in the selected district
@@ -148,13 +180,17 @@ $firstName = $_SESSION["first_name"];
                 dataType: 'json',
                 success: function(response) {
                     console.log('Response from get_schools.php:', response);
-                    $('#schools').val(response.schools.join(', '));
-                    // Clear previous school input fields
-                    $('#schoolFields').empty();
-                    // Add input fields for each school
-                    response.schools.forEach(function(school) {
-                        addSchoolInputField(school);
-                    });
+                    if (response.schools.length === 0) {
+                        $('#schoolFields').html('<p>No schools to show under this district</p>');
+                    } else {
+                        $('#schools').val(response.schools.join(', '));
+                        // Clear previous school input fields
+                        $('#schoolFields').empty();
+                        // Add input fields for each school
+                        response.schools.forEach(function(school) {
+                            addSchoolInputField(school);
+                        });
+                    }
                 },
                 error: function(xhr, status, error) {
                     console.error('Error fetching schools:', error);
@@ -164,10 +200,10 @@ $firstName = $_SESSION["first_name"];
         }
 
         function addSchoolInputField(school) {
-            var schoolField = $('<div>');
-            schoolField.append('<label value="' + school.school_id + '">' + school.school_name + '</label>');
-            schoolField.append('<input type="text" name="allotment_balance_' + school.school_name + '" placeholder="Enter MOOE Allotment here">');
-            schoolField.append('<input type="text" name="graduation_fund_' + school.school_name + '" placeholder="Enter Grad Fund here">');
+            var schoolField = $('<div class="col-md-4">');
+            schoolField.append('<label for="allotment_balance_' + school.school_name + '">' + school.school_name + '</label>');
+            schoolField.append('<input type="text" class="form-control form-control-sm" name="allotment_balance_' + school.school_name + '" placeholder="Enter MOOE Allotment here">');
+            schoolField.append('<input type="text" class="form-control form-control-sm" name="graduation_fund_' + school.school_name + '" placeholder="Enter Grad Fund here">');
             $('#schoolFields').append(schoolField);
         }
     </script>
