@@ -40,6 +40,7 @@ $firstName = $_SESSION["first_name"];
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         background-color: #f9f9f9;
         color: black;
+        font-weight: bold;
     }
 </style>
 
@@ -109,7 +110,6 @@ $firstName = $_SESSION["first_name"];
                     <!-- Add dynamic input fields for schools and their allotment balance and graduation fund -->
                     <!-- JavaScript will handle adding these fields based on the selected district -->
                     <div id="schoolFields" class="row"></div>
-                    <div id="pagination"></div>
                 </div>
                 <br>
                 <button type="submit" class="btn btn-primary">Review</button>
@@ -202,8 +202,9 @@ $firstName = $_SESSION["first_name"];
         function addSchoolInputField(school) {
             var schoolField = $('<div class="col-md-4">');
             schoolField.append('<label for="allotment_balance_' + school.school_name + '">' + school.school_name + '</label>');
-            schoolField.append('<input type="text" class="form-control form-control-sm" name="allotment_balance_' + school.school_name + '" placeholder="Enter MOOE Allotment here">');
-            schoolField.append('<input type="text" class="form-control form-control-sm" name="graduation_fund_' + school.school_name + '" placeholder="Enter Grad Fund here">');
+            schoolField.append('<input type="text" class="form-control form-control-sm" name="' + school.school_id + '" hidden>');
+            schoolField.append('<input type="text" class="form-control form-control-sm" name="allotment_balance_' + school.school_id + '" placeholder="Enter MOOE Allotment here">');
+            schoolField.append('<input type="text" class="form-control form-control-sm" name="graduation_fund_' + school.school_id + '" placeholder="Enter Grad Fund here">');
             $('#schoolFields').append(schoolField);
         }
     </script>

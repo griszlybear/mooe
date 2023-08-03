@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['districtId'])) {
 
     // Replace with your database query to get schools based on the districtId
     // For example, assuming you have a 'schools' table with columns 'school_id' and 'school_name'
-    $sql = "SELECT school_id, school_name FROM school WHERE district_id = ?";
+    $sql = "SELECT school_id, school_name FROM school WHERE district_id = ? AND status='active'";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $districtId);
     $stmt->execute();

@@ -314,6 +314,7 @@ $notificationCount = count($notifications);
             </form>
         </div>
     </section>
+
     <!-- Add the notification icon and preview -->
     <div class="notification-icon" onclick="toggleNotificationPreview()">
         <i class="fa fa-bell"></i>
