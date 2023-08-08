@@ -207,6 +207,7 @@
                 <div class="sub-menu">
                     <a href="../admin/allotment.php" class="sub-item">Allotment</a>
                     <a href="#" class="sub-item">Downloading</a>
+                    <a href="#" class="sub-item">Tracking Slip</a>
                     <a href="#" class="sub-item">ADAS</a>
                 </div>
             </div>

@@ -367,6 +367,9 @@ $firstName = $_SESSION["first_name"];
             Notification 3
         </div>
     </div>
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2023 MOOE. All rights reserved.</p>
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Get current month and year

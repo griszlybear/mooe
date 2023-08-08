@@ -16,7 +16,6 @@ $notificationCount = count($notifications);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <style>
         /* Custom CSS for the form elements */
-
         form#edit-school-form {
             max-width: 600px;
             margin: 0 auto;

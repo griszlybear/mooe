@@ -117,6 +117,11 @@ $firstName = $_SESSION["first_name"];
         </div>
     </div>
 
+    <!-- Footer Section -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2023 MOOE. All rights reserved.</p>
+    </footer>
+
     <?php
     // Assuming you have a database connection established
 

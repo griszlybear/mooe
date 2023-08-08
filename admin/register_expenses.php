@@ -127,7 +127,7 @@ $firstName = $_SESSION["first_name"];
 <?php require_once('../assets/sidebar.php'); ?>
 <section class="main">
     <div class="container">
-        <h1 class="mt-5"><strong>Register Expenses</strong></h1>
+        <h1 class="mt-5"><strong>Register Expense</strong></h1>
         <form action="register_expenses.php" method="POST">
             <div class="form-group">
                 <label for="expenseCategory">Expense Category:</label>
@@ -150,6 +150,11 @@ $firstName = $_SESSION["first_name"];
         </form>
     </div>
 </section>
+
+<!-- Footer Section -->
+<footer class="bg-dark text-white text-center py-3">
+    <p>&copy; 2023 MOOE. All rights reserved.</p>
+</footer>
 
 <?php
 // Check if the form is submitted

@@ -288,6 +288,11 @@ $firstName = $_SESSION["first_name"];
             </div>
         </div>
 
+        <!-- Footer Section -->
+        <footer class="bg-dark text-white text-center py-3">
+            <p>&copy; 2023 MOOE. All rights reserved.</p>
+        </footer>
+
 
         <!-- Include Material DesignJS -->
         <script src="https://cdn.jsdelivr.net/npm/material-components-web@10.0.0/dist/material-components-web.min.js"></script>

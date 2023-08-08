@@ -151,6 +151,11 @@ $firstName = $_SESSION["first_name"];
         </div>
     </section>
 
+    <!-- Footer Section -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2023 MOOE. All rights reserved.</p>
+    </footer>
+
     <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $district = $_POST['district'];
