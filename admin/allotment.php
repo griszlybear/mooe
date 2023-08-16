@@ -50,7 +50,7 @@ $firstName = $_SESSION["first_name"];
     <div class="main">
         <div class="container">
             <h1>MOOE Allocation Form</h1>
-            <form id="allocationForm" method="post" action="save_data.php">
+            <form id="allocationForm" method="post" action="allotment.php">
                 <label for="year">Select a year:</label>
                 <select id="year" name="year">
                     <!-- Populate options with years from the database -->
@@ -76,32 +76,15 @@ $firstName = $_SESSION["first_name"];
                     // Execute the query
                     $districtResult = mysqli_query($conn, $districtQuery);
 
-                    // Check if the query returned any results
-                    if (mysqli_num_rows($districtResult) > 0) {
-                        // Fetch the first district
-                        $firstDistrictRow = mysqli_fetch_assoc($districtResult);
-                        $firstDistrictId = $firstDistrictRow['district_id'];
-                        $firstDistrictName = $firstDistrictRow['district_name'];
+                    // Loop through the remaining districts and generate dropdown options
+                    while ($districtRow = mysqli_fetch_assoc($districtResult)) {
+                        $districtId = $districtRow['district_id'];
+                        $districtName = $districtRow['district_name'];
 
-                        // Set the $_SESSION['district'] to the value of the first option only if it is not already set
-                        if (!isset($_SESSION['district'])) {
-                            $_SESSION['district'] = $firstDistrictId;
-                        }
-
-                        // Output the first dropdown option as selected
-                        $selected = ($_SESSION['district'] == $firstDistrictId) ? 'selected' : '';
-                        echo "<option value='$firstDistrictId' $selected>$firstDistrictName</option>";
-
-                        // Loop through the remaining districts and generate dropdown options
-                        while ($districtRow = mysqli_fetch_assoc($districtResult)) {
-                            $districtId = $districtRow['district_id'];
-                            $districtName = $districtRow['district_name'];
-
-                            // Output the dropdown option
-                            $selected = ($_SESSION['district'] == $districtId) ? 'selected' : '';
-                            echo "<option value='$districtId' $selected>$districtName</option>";
-                        }
+                        // Output the dropdown option
+                        echo "<option value='$districtId'>$districtName</option>";
                     }
+
                     ?>
                 </select>
                 <!-- </div> -->
@@ -117,33 +100,40 @@ $firstName = $_SESSION["first_name"];
         </div>
     </div>
 
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Get the selected year and district from the form
+        $selectedYear = $_POST["year"];
+
+        foreach ($_POST["school_name"] as $schoolName => $fieldValue) {
+            // Extract school ID from school name
+            $schoolId = str_replace(' ', '_', $schoolName);
+
+            // Access values using the extracted school ID
+            $allotmentBalance = $_POST["allotment_balance_" . $schoolId];
+            $graduationFund = $_POST["graduation_fund_" . $schoolId];
+
+            // Insert the data into the database
+            $insertQuery = "INSERT INTO allocation (school_name, year, allotment_balance, graduation_fund) 
+                            VALUES ('$schoolName', '$selectedYear', '$allotmentBalance', '$graduationFund')";
+
+            if (mysqli_query($conn, $insertQuery)) {
+                // Data inserted successfully
+                echo "Data inserted successfully for school $schoolName<br>";
+            } else {
+                // Error occurred while inserting data
+                echo "Error inserting data for school $schoolName: " . mysqli_error($conn) . "<br>";
+            }
+        }
+    }
+    ?>
+
+
+
     <!-- Footer Section -->
     <footer class="bg-dark text-white text-center py-3">
         <p>&copy; 2023 MOOE. All rights reserved.</p>
     </footer>
-
-    <?php
-    // Assuming you have a database connection established
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Retrieve data from the form submission
-        $year = $_POST['year'];
-        $district = $_POST['district'];
-        $schools = $_POST['schools'];
-
-        // Save data to the database (you need to implement the database insert)
-        // ...
-
-        // Trigger notification to the accounting units (you need to implement this)
-        // ...
-
-        // Redirect to the review page after saving data
-        header('Location: review_allotment.php');
-        exit;
-    } else {
-        http_response_code(400); // Bad Request
-    }
-    ?>
 
     <!-- Include JavaScript libraries -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -207,12 +197,13 @@ $firstName = $_SESSION["first_name"];
         function addSchoolInputField(school) {
             var schoolField = $('<div class="col-md-4">');
             schoolField.append('<label for="allotment_balance_' + school.school_name + '">' + school.school_name + '</label>');
-            schoolField.append('<input type="text" class="form-control form-control-sm" name="' + school.school_id + '" hidden>');
-            schoolField.append('<input type="text" class="form-control form-control-sm" name="allotment_balance_' + school.school_id + '" placeholder="Enter MOOE Allotment here">');
-            schoolField.append('<input type="text" class="form-control form-control-sm" name="graduation_fund_' + school.school_id + '" placeholder="Enter Grad Fund here">');
+            schoolField.append('<input type="hidden" name="school_name[' + school.school_name + ']" value="' + school.school_name + '">');
+            schoolField.append('<input type="text" class="form-control form-control-sm" name="allotment_balance_' + school.school_name + '" placeholder="Enter MOOE Allotment here">');
+            schoolField.append('<input type="text" class="form-control form-control-sm" name="graduation_fund_' + school.school_name + '" placeholder="Enter Grad Fund here">');
             $('#schoolFields').append(schoolField);
         }
     </script>
+
 </body>
 
 </html>
